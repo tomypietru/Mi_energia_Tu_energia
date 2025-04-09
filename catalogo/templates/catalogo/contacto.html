@@ -1,0 +1,46 @@
+{% extends "catalogo/index.html" %}
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'catalogo/css/style.css' %}">
+        <title>Contacto</title>
+    </head>
+    <body>
+    
+        
+        {% block main %}
+        <h1 class="display-4 text-white text-center fw-bold bg-dark shadow p-3 mb-5 rounded">Contáctanos</h1>
+        <main class="container py-5 d-flex justify-content-center align-items-center">
+            <section class="contact-form">
+                <h2 class="titulo-contacto">ENVIANOS TU MENSAJE</h1>
+              <form action="https://example.com/enviar-formulario" method="POST">
+                <div class="mb-3">
+                  <label for="nombre" class="form-label blanco letra-mediana">Nombre</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Escribe tu nombre" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label blanco letra-mediana">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su correo" required>
+                </div>
+                <div class="mb-3">
+                  <label for="mensaje" class="form-label blanco letra-mediana">Mensaje</label>
+                  <textarea class="form-control" id="mensaje" name="mensaje" rows="5" placeholder="Escribe tu mensaje aquí" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-warning w-100">Enviar</button>
+              </form>
+            </section>
+        </main>
+        {% endblock main %}
+    
+</body>
+</html>

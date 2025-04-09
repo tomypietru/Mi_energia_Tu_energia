@@ -1,0 +1,280 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to top, #3f3c3c, rgb(20, 20, 20));
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.blanco {
+  color: white;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+.container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+header {
+  background-color: rgb(10, 10, 10);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header .logo {
+  max-width: 100px;
+  height: auto;
+  border-radius: 50%;
+}
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+header .navbar-toggler {
+  border-color: yellow;
+  background-color: transparent;
+}
+header .navbar-toggler:hover {
+  background-color: rgb(20, 20, 20);
+}
+header nav ul {
+  display: flex;
+  list-style: none;
+  gap: 15px;
+}
+header nav ul li {
+  padding: 10px;
+  border: 2px solid white;
+}
+header nav .text_blanco {
+  color: white;
+}
+header nav .text_blanco:hover {
+  color: yellow;
+}
+
+main {
+  text-align: center;
+}
+main .lista_main {
+  display: block;
+  width: 100%;
+  background-color: #3f3c3c;
+  border-radius: 20px;
+  padding: 10px;
+  text-align: center;
+  transition: transform 1.3s;
+}
+main .lista_main:hover {
+  transform: scale(1.05, 1.05);
+  transition: all 1.3s;
+}
+main .container {
+  display: grid;
+  justify-items: center;
+  grid-template-rows: 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.container .py-5 {
+  text-align: center;
+}
+
+h1 {
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+p {
+  padding: 20px;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 10px;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.banner-perfume{
+  width: 50%;
+  height: 10%;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.letra-mediana {
+  font-size: 1.5rem;
+}
+
+h2 {
+  color: white;
+  padding: 20px;
+}
+
+.titulo-contacto {
+  padding: 50px;
+  font-size: 2rem;
+}
+
+h3 {
+  text-align: center;
+  color: aliceblue;
+  padding: 10px;
+}
+
+.img3 {
+  text-align: center;
+  width: auto;
+  border-radius: 20px;
+  padding: 10px;
+  opacity: 1;
+}
+
+ul {
+  padding: 20px;
+  list-style-type: none;
+}
+
+.logo_nosotros {
+  border-radius: 150px;
+  width: 300px;
+}
+
+.fs {
+  font-size: 1.3rem;
+}
+
+.img2 {
+  width: 700px;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.img_car {
+  margin: 0 auto;
+  height: auto;
+  width: 40%;
+  object-fit: cover;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.img_car_vela {
+  margin-left: 35%;
+  height: auto;
+  width: 30%;
+  object-fit: cover;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+footer {
+  background-color: black;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+footer .container {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+footer ul li {
+  margin: 5px;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid white;
+  list-style-type: none;
+}
+footer .lista_footer {
+  margin: 5px 0;
+  font-size: 1.2rem;
+}
+footer .lista_footer a {
+  color: white;
+  text-decoration: none;
+}
+footer .lista_footer a :hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 748px) {
+  main .container {
+    grid-template-columns: 1fr 1fr;
+  }
+  main .container img {
+    max-width: 100%;
+    height: auto;
+  }
+  .modal-content .modal-body {
+    font-size: 1rem;
+  }
+  .fs {
+    font-size: 1.1rem;
+  }
+  header .container {
+    flex-direction: column;
+    align-items: center;
+  }
+  h1 {
+    font-size: 2rem;
+  }
+  p {
+    font-size: 1rem;
+    max-width: 85%;
+  }
+  .img2 {
+    height: auto;
+    width: 90%;
+  }
+}
+@media screen and (max-width: 480px) {
+  main .container {
+    grid-template-columns: 1fr;
+  }
+  main .container img {
+    max-width: 90%;
+    height: auto;
+  }
+  .modal-content .modal-body {
+    font-size: 0.9rem;
+  }
+  header .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .img_car {
+    width: 100%;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  p {
+    font-size: 0.9rem;
+    max-width: 100%;
+  }
+  .img2 {
+    height: auto;
+    width: 100%;
+  }
+}
+
+/*# sourceMappingURL=estilo.css.map */
