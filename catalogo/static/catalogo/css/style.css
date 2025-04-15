@@ -6,8 +6,18 @@
 
 body {
   background: linear-gradient(to top, #3f3c3c, rgb(20, 20, 20));
-  font-family: Arial, Helvetica, sans-serif;
+  
 }
+
+h1, h2, .titulo-producto {
+  font-family: 'Playfair Display', serif;
+}
+
+body, p, nav, footer {
+  font-family: 'Poppins', sans-serif;
+}
+
+
 
 .blanco {
   color: white;
@@ -90,6 +100,8 @@ main .container {
   gap: 20px;
 }
 
+
+
 .container .py-5 {
   text-align: center;
 }
@@ -161,15 +173,21 @@ ul {
   font-size: 1.3rem;
 }
 
+.car_w{
+  width: 350px;
+}
+
 .img2 {
   width: 700px;
   border-radius: 20px;
   padding: 10px;
+  height: auto;
+  width: 100%;
 }
 
 .img_car {
   margin: 0 auto;
-  height: auto;
+  height: 50px;
   width: 40%;
   object-fit: cover;
   border-radius: 20px;
@@ -264,6 +282,23 @@ footer .lista_footer a :hover {
   .img_car {
     width: 100%;
   }
+  .img_car {
+    margin: 0 auto;
+    height: auto;
+    width: 40%;
+    object-fit: cover;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  .img_car_vela {
+    margin-left: 35%;
+    height: auto;
+    width: 30%;
+    object-fit: cover;
+    border-radius: 20px;
+    padding: 10px;
+  }
   h1 {
     font-size: 1.8rem;
   }
@@ -272,6 +307,9 @@ footer .lista_footer a :hover {
     max-width: 100%;
   }
   .img2 {
+    width: 700px;
+    border-radius: 20px;
+    padding: 10px;
     height: auto;
     width: 100%;
   }
