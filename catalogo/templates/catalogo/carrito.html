@@ -1,0 +1,39 @@
+{% extends "catalogo/index.html" %}
+
+{% load static %}
+{% block main %}
+<h2>Carrito de Compras</h2>
+
+{% if carrito_detalles %}
+  <ul>
+    {% for item in carrito_detalles %}
+      <li style="margin-bottom: 1em; border-bottom: 1px solid #ccc; padding-bottom: 1em;">
+        <strong>{{ item.nombre }}</strong> ({{ item.categoria }})<br>
+        Cantidad: {{ item.cantidad }}<br>
+        Precio unitario: ${{ item.precio_unitario }}<br>
+        Subtotal: ${{ item.subtotal }}
+
+        <form action={% url 'eliminar_del_carrito' producto_id=item.id %} method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-warning" style="padding: 5px;" >Eliminar</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <hr>
+  <p><strong>Total:</strong> ${{ total }}</p>
+
+  
+  <div style="text-align: center;">
+
+      <a href="#" class="boton-whatsapp" style="padding: 15px; background-color: #25D366; color: white; text-decoration: none; border-radius: 5px; text-align: center;">
+          Finalizar compra por WhatsApp
+        </a>
+  </div>
+
+{% else %}
+  <p>El carrito está vacío.</p>
+{% endif %}
+
+{% endblock main %}

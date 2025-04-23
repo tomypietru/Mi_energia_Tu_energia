@@ -1,353 +1,49 @@
 {% extends "catalogo/index.html" %}
-
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href={% static 'catalogo/css/style.css' %}>
-    <title>Perfumes</title>
-</head>
-<body>
-
-    
-    {% block main %}
-    <main class="main">
-        <h2 class="display-4 text-white text-center fw-bold bg-dark shadow p-3 mb-5 rounded">
-            HOME SPRAYS
-        </h2>
-        <ul class="container">
-            
-           
-            <div class="lista_main">
-                <img class="img3" src={% static "catalogo/assets/img/HS-frutticrem.jpg" %} alt="perfume1">
-                <h2>Fruti-Crem</h2>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
-                  Ver descripción
-                </button>
-            
-                
-            </div>
-              <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="modal1Label">Fruti-Crem</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <img class="img3" src={% static "catalogo/assets/img/HS-frutticrem.jpg" %} alt="perfume1">
-                    </div>
-                    <div class="modal-body">
-                      Un perfume envolvente con un carácter misterioso. Combina notas de canela, pimienta negra y cardamomo con un fondo de vainilla y cuero. Ideal para noches especiales y personalidades atrevidas.
-                      Notas:
-                      - Frutilla
-                      - Campo
-                      - crema
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-            <div class="lista_main">
-                <img class="img3" src={% static "catalogo/assets/img/HS-coco-vainilla.jpg" %} alt="perfume2">
-                <h2>Coco-Vainilla</h2>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal2">
-                  Ver descripción
-                </button>
-            
-                
-            </div>
-            <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+{% block main %}
+<main class="main">
+    <h2 class="display-4 text-white text-center fw-bold bg-mi-color shadow p-3 mb-5 rounded">
+        HOME SPRAYS
+    </h2>
+    <ul class="container">
+      {% for producto in productos %}
+      <div class="lista_main">
+          <img class="img3" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+          <h2>{{ producto.nombre }}</h2>
+          <p style="color: white;">${{producto.precio}}</p>
+          <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal{{ producto.id }}">
+              Ver descripción
+          </button>
+      </div>
+      
+      
+      <div class="modal fade" id="modal{{ producto.id }}" tabindex="-1" aria-labelledby="modalLabel{{ producto.id }}" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title" id="modal2Label">Coco-Vainilla</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      <h5 class="modal-title">{{ producto.nombre }}</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                   </div>
                   <div class="modal-body">
-                    <img class="img3" src={% static "catalogo/assets/img/HS-coco-vainilla.jpg" %} alt="perfume2">
-                  </div>
-                  <div class="modal-body">
-                    El aroma fresco del océano capturado en una botella. Con notas cítricas de bergamota y limón, acentuadas por un corazón marino y un fondo amaderado de cedro. Perfecto para el día a día o climas cálidos.
+                      <img class="img3" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                      <p>{{ producto.descripcion }}</p>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                      <form method="post" action="{% url 'agregar_al_carrito' producto.id %}">
+                          {% csrf_token %}
+                          <div class="input-group mb-3">
+                            <label class="input-group-text" for="cantidad{{ producto.id }}">Cantidad:</label>
+                            <input type="number" class="form-control" name="cantidad" id="cantidad{{ producto.id }}" min="1" value="1" required>
+                          </div>
+                          <button type="submit" class="btn btn-warning">Agregar al carrito</button>
+                      </form>
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   </div>
-                </div>
               </div>
-            </div>
-            
-               
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-lemongrass.jpg" %} alt="perfume3">
-                    <h2>Lemongrass</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal3">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal3" tabindex="-1" aria-labelledby="modal3Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal3Label">Lemongrass</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="moda3" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-lemongrass.jpg" %} alt="perfume3">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume cálido y sensual que mezcla ámbar, vainilla y sándalo, con toques de lavanda y almendra. Diseñado para quienes buscan destacar con un aroma único y reconfortante.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-melissa-tilo.jpg" %} alt="perfume4">
-                    <h2>Melissa-Tilo</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal4">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal4" tabindex="-1" aria-labelledby="modal4Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Melissa-Tilo</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-melissa-tilo.jpg" %} alt="perfume4">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume radiante inspirado en la calidez del sol. Combina notas cítricas de limón y bergamota con un corazón de miel dorada y flor de naranjo. Su base de ámbar y vainilla envuelve el aroma en un toque acogedor y sofisticado. Ideal para quienes buscan un perfume brillante y lleno de energía.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-melissa.jpg" %} alt="perfume5">
-                    <h2>Melissa</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal5">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal5" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Melissa</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-melissa.jpg" %} alt="perfume5">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume vibrante y energético, con notas principales de mandarina, pomelo y limón. Su corazón floral de neroli y flor de azahar, combinado con una base de almizcle blanco, lo convierte en una opción luminosa y moderna.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
-                  <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-aloe.jpg" %} alt="perfume7">
-                    <h2>Aloe</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal6">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal6" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Aloe</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-aloe.jpg" %} alt="perfume6">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume que evoca el frescor de un jardín en primavera, con notas principales de jazmín, rosa y lirio del valle. Su base almizclada añade un toque sutil de elegancia. Perfecto para quienes buscan un aroma delicado y romántico.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>      
-
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-naranja-pimienta.jpg" %} alt="perfume7">
-                    <h2>Naranja-Pimienta</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal7">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal7" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Naranja-Pimienta</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-naranja-pimienta.jpg" %} alt="perfume6">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume que evoca el frescor de un jardín en primavera, con notas principales de jazmín, rosa y lirio del valle. Su base almizclada añade un toque sutil de elegancia. Perfecto para quienes buscan un aroma delicado y romántico.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-neroli.jpg" %} alt="perfume6">
-                    <h2>Neroli</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal8">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal8" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Neroli</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-neroli.jpg" %} alt="perfume6">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume que evoca el frescor de un jardín en primavera, con notas principales de jazmín, rosa y lirio del valle. Su base almizclada añade un toque sutil de elegancia. Perfecto para quienes buscan un aroma delicado y romántico.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-orquideas.jpg" %} alt="perfume6">
-                    <h2>Orquideas</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal9">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal9" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Orquideas</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-orquideas.jpg" %} alt="perfume6">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume que evoca el frescor de un jardín en primavera, con notas principales de jazmín, rosa y lirio del valle. Su base almizclada añade un toque sutil de elegancia. Perfecto para quienes buscan un aroma delicado y romántico.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-relax.jpg" %} alt="perfume6">
-                    <h2>Relax</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal10">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal10" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Relax</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-relax.jpg" %} alt="perfume6">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume que evoca el frescor de un jardín en primavera, con notas principales de jazmín, rosa y lirio del valle. Su base almizclada añade un toque sutil de elegancia. Perfecto para quienes buscan un aroma delicado y romántico.                   
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-            <div class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/HS-vainilla-limon.jpg" %} alt="perfume6">
-                    <h2>Vainilla-Limon</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal11">
-                        Ver descripción
-                      </button>
-                    
-            </div>
-                <div class="modal fade" id="modal11" tabindex="-1" aria-labelledby="modal2Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal2Label">Vainilla-Limon</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/HS-vainilla-limon.jpg" %} alt="perfume6">
-                        </div>
-                        <div class="modal-body">
-                            Un perfume que evoca el frescor de un jardín en primavera, con notas principales de jazmín, rosa y lirio del valle. Su base almizclada añade un toque sutil de elegancia. Perfecto para quienes buscan un aroma delicado y romántico.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-              
-        </ul>
-        </main>
-        {% endblock main %}
-        
-</body>
-</html>
+          </div>
+      </div>
+      {% endfor %}
+    </ul>
+</main>
+{% endblock %}

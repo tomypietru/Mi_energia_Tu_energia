@@ -19,9 +19,15 @@
 <body>
     {% block header %}
     <header class="header">
-        <nav class="navbar navbar-expand-lg fondo_negro">
-            <div class="container-fluid">
-              <a class="navbar-brand" href={% url "inicio" %}><img class="logo" src={% static "catalogo/assets/img/Logo-Mienergia.png" %} alt="logo"></a>
+      <nav class="navbar navbar-expand-lg fondo_negro">
+        <div class="container-fluid">
+          <a class="navbar-brand" href={% url "inicio" %}><img class="logo" src={% static "catalogo/assets/img/Logo-Mienergia.png" %} alt="logo"></a>
+          <a href={% url 'ver_carrito' %} class="btn btn-outline-light position-relative">
+            🛒 Carrito
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{ request.session.carrito|length }}
+            </span>
+        </a>    
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -30,6 +36,8 @@
                   <a class="nav-link text_blanco" href={% url "inicio" %}>Inicio</a>
                   <a class="nav-link text_blanco" href={% url "nosotros" %}>Nosotros</a>
                   <a class="nav-link text_blanco" href={% url "contacto" %}>Contacto</a>
+                  <a class="nav-link text_blanco" href={% url "perfumes" %}>Perfumes</a>
+                  <a class="nav-link text_blanco" href={% url "velas" %}>Velas</a>
                 </div>
               </div>
             </div>
@@ -38,7 +46,7 @@
     {% endblock header %}
     {% block main %}
     <main class="main">
-        <h1 class="display-4 text-white text-center fw-bold bg-dark shadow p-3 mb-5 rounded">
+        <h1 class="display-4 text-white text-center fw-bold bg-mi-color shadow p-3 mb-5 rounded">
           Mi Energia Tu Energia
         </h1>
         <div id="carouselExampleRide" class="carousel slide" data-bs-ride="true">
@@ -68,7 +76,7 @@
               <span class="visually-hidden">Next</span>
             </button>
           </div>
-        <h1 class="display-9 text-white text-center fw-bold bg-dark shadow p-3 mb-5 rounded">
+        <h1 class="display-9 text-white text-center fw-bold bg-mi-color shadow p-3 mb-5 rounded">
             Nuestros Productos
         </h1>
         <h2>
@@ -79,8 +87,6 @@
           Bienvenido a nuestra selección exclusiva de perfumes, donde cada fragancia cuenta una historia única. Explora una colección diseñada para capturar emociones y momentos especiales, desde los aromas frescos y vibrantes hasta las esencias cálidas y sofisticadas. Cada frasco es una obra de arte, pensado para acompañarte en cada paso de tu día.
         </p>
         <a  class="btn btn-warning btn-x1 text-uppercase" href={% url "perfumes" %}>VER HOME SPRAYS</a>
-        
-        
         <h2>
             Velas:
         </h2>
@@ -89,6 +95,8 @@
           Descubre nuestra línea de velas artesanales, creadas para transformar cualquier espacio en un rincón de calma y calidez. Desde suaves notas florales hasta aromas intensos y relajantes, nuestras velas están hechas con ingredientes de alta calidad para garantizar una experiencia única.
         </p>
         <a  class="btn btn-warning btn-x1 text-uppercase" href={% url "velas" %}>VER VELAS</a>
+        
+        
     </main>
     {% endblock main %}
     <br>

@@ -5,7 +5,7 @@
 }
 
 body {
-  background: linear-gradient(to top, #3f3c3c, rgb(20, 20, 20));
+  background: linear-gradient(to top, #9e8763, #7a6443)
   
 }
 
@@ -17,7 +17,9 @@ body, p, nav, footer {
   font-family: 'Poppins', sans-serif;
 }
 
-
+.bg-mi-color {
+  background-color: #855535; 
+}
 
 .blanco {
   color: white;
@@ -37,7 +39,7 @@ body, p, nav, footer {
 }
 
 header {
-  background-color: rgb(10, 10, 10);
+  background-color: rgb(36, 21, 6);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -54,7 +56,7 @@ header .container {
   padding: 10px 20px;
 }
 header .navbar-toggler {
-  border-color: yellow;
+  border-color: rgb(255, 255, 255);
   background-color: transparent;
 }
 header .navbar-toggler:hover {
@@ -73,7 +75,7 @@ header nav .text_blanco {
   color: white;
 }
 header nav .text_blanco:hover {
-  color: yellow;
+  color: rgb(99, 58, 18)
 }
 
 main {
@@ -115,6 +117,7 @@ h1 {
 }
 
 p {
+  
   padding: 20px;
   font-size: 1.2rem;
   line-height: 1.8;
@@ -231,6 +234,15 @@ footer .lista_footer a {
 }
 footer .lista_footer a :hover {
   text-decoration: underline;
+}
+ 
+.boton-whatsapp{
+  padding: 15px;
+  background-color: #25D366; 
+  color: white; 
+  text-decoration: none; 
+  border-radius: 5px;
+  text-align: center;
 }
 
 @media screen and (max-width: 748px) {

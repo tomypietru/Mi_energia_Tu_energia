@@ -16,180 +16,47 @@
     
     {% block main %}
     <main>
-        <h2 class="display-4 text-white text-center fw-bold bg-dark shadow p-3 mb-5 rounded">
+        <h2 class="display-4 text-white text-center fw-bold bg-mi-color shadow p-3 mb-5 rounded">
             VELAS
         </h2>
         <ul class="container">
-
-            
-                <li class="lista_main">
-                    <img class="img3" src={% static "catalogo/assets/img/Vela-fruti-crem.JPG" %} alt="vela1">
-                    <h2>Fruti-Crem</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal1">
-                        Ver descripción
-                      </button>
-                    
-                </li>
-                <div class="modal fade" id="modal1" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal1Label">Fruti-Crem</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/Vela-fruti-crem.JPG" %} alt="vela1">
-                        </div>
-                        <div class="modal-body">
-                            Una vela floral y fresca que evoca la serenidad de un jardín en primavera. Combina notas de jazmín, rosa y lirio del valle con un fondo sutil de almizcle blanco. Perfecta para momentos de relajación o cenas románticas.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
+          {% for producto in productos %}
+          <div class="lista_main">
+              <img class="img3" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+              <h2>{{ producto.nombre }}</h2>
+              <p style="color: white;">${{producto.precio}}</p>
+              <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modal{{ producto.id }}">
+                  Ver descripción
+              </button>
+          </div>
+          
+          
+          <div class="modal fade" id="modal{{ producto.id }}" tabindex="-1" aria-labelledby="modalLabel{{ producto.id }}" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">{{ producto.nombre }}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                       </div>
-                    </div>
-                  </div>
-                <li class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img///Vela-polvo-1.JPG" %} alt="vela2">
-                    <h2>Vela en polvo</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal2">
-                        Ver descripción
-                      </button>
-                    
-                </li>
-                <div class="modal fade" id="modal2" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal1Label">Vela en polvo</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img///Vela-polvo-1.JPG" %} alt="vela2">
-                        </div>
-                        <div class="modal-body">
-                            Dulce y reconfortante, esta vela combina notas de miel dorada, vainilla y un toque de almendra tostada. Su aroma cálido llena el espacio con una sensación de calma y felicidad. Ideal para momentos de relajación o meditación.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
+                      <div class="modal-body">
+                          <img class="img3" src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                          <p>{{ producto.descripcion }}</p>
                       </div>
-                    </div>
-                  </div>
-                <li class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/vela3.jpg" %} alt="vela3">
-                    <h2>Brisa Lavanda</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal3">
-                        Ver descripción
-                      </button>
-                    
-                </li>
-                <div class="modal fade" id="modal3" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal1Label">Brisa Lavanda</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/vela3.jpg" %} alt="vela3">
-                        </div>
-                        <div class="modal-body">
-                            Una vela relajante con el clásico aroma de la lavanda fresca. Sus notas herbales y florales calman los sentidos, creando un ambiente sereno ideal para momentos de descanso y meditación.
-                        </div>
-                        <div class="modal-footer">
+                      <div class="modal-footer">
+                          <form method="post" action="{% url 'agregar_al_carrito' producto.id %}">
+                              {% csrf_token %}
+                              <div class="input-group mb-3">
+                                <label class="input-group-text" for="cantidad{{ producto.id }}">Cantidad:</label>
+                                <input type="number" class="form-control" name="cantidad" id="cantidad{{ producto.id }}" min="1" value="1" required>
+                              </div>
+                              <button type="submit" class="btn btn-warning">Agregar al carrito</button>
+                          </form>
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
                       </div>
-                    </div>
                   </div>
-                <li class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/vela4.jpg" %} alt="vela4">
-                    <h2>Flores de Naranjo</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal4">
-                        Ver descripción
-                      </button>
-                    
-                </li>
-                <div class="modal fade" id="modal4" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal1Label">Flores de Naranjo</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/vela4.jpg" %} alt="vela4">
-                        </div>
-                        <div class="modal-body">
-                            Una vela vibrante y llena de vida, con el aroma dulce y cítrico de las flores de naranjo. Perfecta para llenar cualquier espacio con energía y frescura.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <li class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/vela5.jpg" %} alt="vela5">
-                    <h2>Aroma Te Verde</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal5">
-                        Ver descripción
-                      </button>
-                    
-                </li>
-                <div class="modal fade" id="modal5" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal1Label">Aroma Te Verde</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/vela5.jpg" %} alt="vela5">
-                        </div>
-                        <div class="modal-body">
-                            Una fragancia delicada y refrescante que combina las notas herbales del té verde con un toque sutil de cítricos. Ideal para promover concentración y tranquilidad en tu día.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <li class="lista_main">
-
-                    <img class="img3" src={% static "catalogo/assets/img/vela6.jpg" %} alt="vela6">
-                    <h2>Tres Deseos</h2>
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal6">
-                        Ver descripción
-                      </button>
-                    
-                </li>
-                <div class="modal fade" id="modal6" tabindex="-1" aria-labelledby="modal1Label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modal1Label">Tres Deseos</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                          <img class="img3" src={% static "catalogo/assets/img/vela6.jpg" %} alt="vela6">
-                        </div>
-                        <div class="modal-body">
-                            Una mezcla mágica de notas dulces y especiadas que evocan calidez y fantasía. Esta vela inspira momentos de reflexión y esperanza, ideal para acompañarte mientras pides tus tres deseos.
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-            
+              </div>
+          </div>
+          {% endfor %}
         </ul>
     </main>
     {% endblock main %}
